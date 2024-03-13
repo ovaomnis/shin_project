@@ -18,6 +18,8 @@ public class TableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @Builder.Default
+    private Boolean reserved = false;
 
     @OneToMany(mappedBy = "table")
     private Set<Session> sessions;
