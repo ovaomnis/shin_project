@@ -33,9 +33,10 @@ public class InitData implements CommandLineRunner {
         Category burgerCatSaved = categoryRepository.save(burgerCat);
 
         Set<Category> categories = new HashSet<>();
-        categories.add(burgerCat);
+        categories.add(burgerCatSaved);
 
         Position macChickenPosition = Position.builder()
+                .name("Mac Chicken")
                 .price(new BigDecimal("12.33"))
                 .description("Lorem Ipsum")
                 .categories(categories)
