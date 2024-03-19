@@ -10,6 +10,7 @@ import java.util.UUID;
 
 @Entity
 @Setter
+@ToString
 @Getter
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -18,6 +19,7 @@ import java.util.UUID;
 public class Session {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @EqualsAndHashCode.Include
     private UUID id;
     private LocalDateTime opened;
     private LocalDateTime closed;

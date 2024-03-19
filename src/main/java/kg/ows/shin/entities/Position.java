@@ -14,10 +14,12 @@ import java.util.UUID;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Position {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(length = 36)
+    @EqualsAndHashCode.Include
     private UUID id;
     private String name;
     private String description;

@@ -7,6 +7,7 @@ import java.util.UUID;
 @Entity
 @Setter
 @Getter
+@ToString
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor

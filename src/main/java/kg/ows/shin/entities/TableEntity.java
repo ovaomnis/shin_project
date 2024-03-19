@@ -11,12 +11,14 @@ import java.util.UUID;
 @Setter
 @Getter
 @Builder
+@ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class TableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @EqualsAndHashCode.Include
     private UUID id;
     @Builder.Default
     private Boolean reserved = false;
