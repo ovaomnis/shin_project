@@ -3,12 +3,14 @@ package kg.ows.shin.bootstrap;
 
 import kg.ows.shin.entities.Category;
 import kg.ows.shin.entities.Position;
+import kg.ows.shin.entities.TableEntity;
 import kg.ows.shin.repositories.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.math.BigDecimal;
@@ -22,30 +24,40 @@ public class InitData implements CommandLineRunner {
     public final CategoryRepository categoryRepository;
     public final OrderRepository orderRepository;
     public final PositionRepository positionRepository;
-    public final SessionRepository sessionRepository;
     public final TableRepository tableRepository;
 
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-        initializeFromCsv();
+        initializePositionAndCategoryFromCsv();
+        initializeTables();
     }
 
     public Set<Category> getOrCreateCats(String[] cats) {
         Set<Category> categories = new HashSet<>();
-        for (String cat: cats) {
-            Optional<Category> category = categoryRepository.findByName(cat.trim());
+        for (String cat : cats) {
+            Optional<Category> category = categoryRepository.findByName(cat.trim().toLowerCase());
             if (category.isPresent()) {
                 categories.add(category.get());
             } else {
-                Category createdCat = categoryRepository.save(Category.builder().name(cat.trim()).build());
+                Category createdCat = categoryRepository.save(Category.builder().name(cat.trim().toLowerCase()).build());
                 categories.add(createdCat);
             }
         }
         return categories;
     }
 
-    public void initializeFromCsv() throws Exception {
+    public void initializeTables() {
+        Set<TableEntity> tables = new HashSet<>();
+        for (int i = 0; i < 10; i++) {
+            tables.add(TableEntity.builder()
+                    .reserved(false)
+                    .build());
+        }
+        tableRepository.saveAll(tables);
+    }
+
+    public void initializePositionAndCategoryFromCsv() throws Exception {
         ArrayList<Position> positions = new ArrayList<>();
         String file = "src/main/resources/data/positions.csv";
         String line = "";

@@ -3,11 +3,14 @@ package kg.ows.shin.service;
 import kg.ows.shin.dto.PositionDTO;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface PositionService {
-    PositionDTO getPositionById(UUID id);
+    PositionDTO getById(UUID id);
 
     List<PositionDTO> getList();
+
+    PositionDTO create(PositionDTO positionDto);
+
+    PositionDTO fullUpdate(PositionDTO positionDTO, UUID positionId);
 }
